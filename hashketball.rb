@@ -126,4 +126,53 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player)
+  find_away_player(player)&.fetch(:points) || find_home_player(player)&.fetch(:points)
+end 
+
+def find_away_player(player)
+  game_hash[:away][:players].find {|hash| hash[:player_name] == player}
+end 
+
+def find_home_player(player)
+  game_hash[:home][:players].find {|hash| hash[:player_name] == player}
+end 
+
+def shoe_size(player)
+  find_away_player(player)&.fetch(:shoe) || find_home_player(player)&.fetch(:shoe)
+end 
+
+def home_team
+  game_hash[:home][:team_name]
+end 
+
+def away_team
+  game_hash[:away][:team_name]
+end 
+
+def team_colors(team)
+  team == home_team ? game_hash[:home][:colors] : game_hash[:away][:colors]
+end 
+
+
+def big_shoe_rebounds
+  largest_shoe_size = nil
+  number_of_rebounds = nil
+
+  game_hash[:home][:players].each do |player| 
+     if largest_shoe_size.nil? || largest_shoe_size < player[:shoe]
+      largest_shoe_size = player[:shoe]
+      number_of_rebounds = player[:rebounds]
+     end 
+  end 
+  
+  game_hash[:away][:players].each do |player| 
+    if largest_shoe_size.nil? || largest_shoe_size < player[:shoe]
+     largest_shoe_size = player[:shoe]
+     number_of_rebounds = player[:rebounds]
+    end 
+  end 
+
+  number_of_rebounds
+
+end 
