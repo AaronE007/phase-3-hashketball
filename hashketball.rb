@@ -154,22 +154,13 @@ def team_colors(team)
   team == home_team ? game_hash[:home][:colors] : game_hash[:away][:colors]
 end 
 
-def big_shoe_rebounds
-  largest_shoe_size = nil
-  number_of_rebounds = nil
 
-  game_hash[:home][:players].each do |player| 
-     if largest_shoe_size.nil? || largest_shoe_size < player[:shoe]
-      largest_shoe_size = player[:shoe]
-      number_of_rebounds = player[:rebounds]
-     end 
-  end 
-  
-  game_hash[:away][:players].each do |player| 
-    if largest_shoe_size.nil? || largest_shoe_size < player[:shoe]
-     largest_shoe_size = player[:shoe]
-     number_of_rebounds = player[:rebounds]
-    end 
-  end 
-  number_of_rebounds
+def big_shoe_rebounds
+big_shoe = players.max_by {|player| player[:shoe]}
+big_shoe[:rebounds]
 end 
+
+def team_names
+  [game_hash[:home][:team_name], game_hash[:away][:team_name]]
+end 
+
