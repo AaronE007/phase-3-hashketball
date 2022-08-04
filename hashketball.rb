@@ -1,4 +1,4 @@
-# Write your code below game_hash
+require "pry"
 def game_hash
   {
     home: {
@@ -162,6 +162,7 @@ end
 def team_names
   game_hash.map do |location, team_data|
     team_data[:team_name]
+    binding.pry
   end
 end
 
